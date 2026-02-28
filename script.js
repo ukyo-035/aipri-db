@@ -80,10 +80,10 @@ document.getElementById("filterToggle")
 
 function applyFilters() {
   const checkedBoxes = document.querySelectorAll("input[type=checkbox]:checked");
+  const searchText = document.getElementById("searchInput").value.toLowerCase();
 
   const filterMap = {};
 
-  // カテゴリごとにまとめる
   checkedBoxes.forEach(box => {
     const key = box.dataset.key;
     if (!filterMap[key]) filterMap[key] = [];
@@ -92,11 +92,26 @@ function applyFilters() {
 
   const filteredData = allData.filter(item => {
 
-    return Object.keys(filterMap).every(key => {
-      // カテゴリ内はOR
+    // ① カテゴリフィルター判定
+    const categoryMatch = Object.keys(filterMap).every(key => {
       return filterMap[key].includes(item[key].toString());
     });
 
+    if (!categoryMatch) return false;
+
+    // ② 検索判定
+    if (searchText) {
+      const searchable =
+        item.name +
+        item.parts.tops +
+        item.parts.bottoms +
+        item.parts.shoes +
+        item.parts.accessory;
+
+      return searchable.toLowerCase().includes(searchText);
+    }
+
+    return true;
   });
 
   renderCards(filteredData);
@@ -108,3 +123,6 @@ document.addEventListener("change", function (e) {
     applyFilters();
   }
 });
+
+document.getElementById("searchInput")
+  .addEventListener("input", applyFilters);
