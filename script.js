@@ -4,47 +4,9 @@ fetch("data.json")
   .then(res => res.json())
   .then(data => {
     allData = data;
-
-    initFilters(data);   // ← 追加
-
-    renderCards(data);
-    updateCount(data.length);
+    renderCards(allData);
+    updateCount(allData.length);
   });
-
-function initFilters(data) {
-  createCheckboxFilter("brandFilter", "brand", data);
-  createCheckboxFilter("waveFilter", "wave_label", data);
-  createCheckboxFilter("rarityFilter", "rarity", data, true);
-  createCheckboxFilter("colorFilter", "color", data);
-}
-
-function createCheckboxFilter(containerId, key, data, isRarity = false) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = "";
-
-  const values = [...new Set(data.map(item => item[key]))];
-
-  // ソート
-  if (key === "wave_label") {
-    values.sort((a, b) => parseInt(a) - parseInt(b));
-  }
-
-  if (key === "rarity") {
-    values.sort((a, b) => a - b);
-  }
-
-  values.forEach(value => {
-    const label = document.createElement("label");
-
-    label.innerHTML = `
-      <input type="checkbox" value="${value}" data-key="${key}">
-      ${isRarity ? "★".repeat(value) : value}
-    `;
-
-    container.appendChild(label);
-    container.appendChild(document.createElement("br"));
-  });
-}
 
 function renderCards(data) {
   const container = document.getElementById("cardContainer");
@@ -55,11 +17,10 @@ function renderCards(data) {
     card.className = "card";
 
     card.innerHTML = `
-      <img src="${item.image}">
-      <div>
-        <strong>${item.name}</strong><br>
-        ${item.wave_label} ★${"★".repeat(item.rarity)}
-      </div>
+      <img src="${item.image}" alt="">
+      <h4>${item.name}</h4>
+      <p>${item.brand} / ${item.color}</p>
+      <p>${item.series} / ${item.rarity}</p>
     `;
 
     container.appendChild(card);
@@ -67,16 +28,9 @@ function renderCards(data) {
 }
 
 function updateCount(count) {
-  document.getElementById("resultCount").textContent =
-    `${count}件表示中`;
+  document.getElementById("count").textContent =
+    `表示件数：${count}件`;
 }
-
-document.getElementById("filterToggle")
-  .addEventListener("click", () => {
-    const area = document.getElementById("filterArea");
-    area.style.display =
-      area.style.display === "none" ? "block" : "none";
-  });
 
 function applyFilters() {
   const checkedBoxes = document.querySelectorAll("input[type=checkbox]:checked");
@@ -86,6 +40,8 @@ function applyFilters() {
   const filterMap = {};
 
   checkedBoxes.forEach(box => {
+    if (!box.dataset.key) return;
+
     const key = box.dataset.key;
     if (!filterMap[key]) filterMap[key] = [];
     filterMap[key].push(box.value);
@@ -93,14 +49,12 @@ function applyFilters() {
 
   let filteredData = allData.filter(item => {
 
-    // ① カテゴリ判定
     const categoryMatch = Object.keys(filterMap).every(key => {
       return filterMap[key].includes(item[key].toString());
     });
 
     if (!categoryMatch) return false;
 
-    // ② 検索判定
     if (searchText) {
       const searchable =
         item.name +
@@ -117,19 +71,13 @@ function applyFilters() {
     return true;
   });
 
-  // ③ 色違いまとめ処理
   if (groupToggle) {
-    const seenGroups = new Set();
-
+    const seen = new Set();
     filteredData = filteredData.filter(item => {
       if (!item.color_group) return true;
-
-      if (seenGroups.has(item.color_group)) {
-        return false;
-      } else {
-        seenGroups.add(item.color_group);
-        return true;
-      }
+      if (seen.has(item.color_group)) return false;
+      seen.add(item.color_group);
+      return true;
     });
   }
 
@@ -137,11 +85,8 @@ function applyFilters() {
   updateCount(filteredData.length);
 }
 
-document.addEventListener("change", function (e) {
-  if (e.target.type === "checkbox") {
-    applyFilters();
-  }
-});
+document.querySelectorAll("input[type=checkbox]")
+  .forEach(cb => cb.addEventListener("change", applyFilters));
 
 document.getElementById("searchInput")
   .addEventListener("input", applyFilters);
