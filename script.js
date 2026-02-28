@@ -69,3 +69,10 @@ function createCheckboxFilter(containerId, key, data, isRarity = false) {
     container.appendChild(document.createElement("br"));
   });
 }
+
+document.getElementById("filterToggle")
+  .addEventListener("click", () => {
+    const area = document.getElementById("filterArea");
+    area.style.display =
+      area.style.display === "none" ? "block" : "none";
+  });
