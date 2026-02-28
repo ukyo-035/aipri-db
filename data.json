@@ -17,3 +17,22 @@
     "image": "https://via.placeholder.com/300"
   }
 ]
+[
+  {
+    "id": "0002",
+    "name": "テストコーデ２",
+    "brand": "クール",
+    "wave_no": 3,
+    "wave_label": "3弾",
+    "rarity": 3,
+    "color": "ブルー",
+    "color_group": "A003",
+    "parts": {
+      "tops": "トップスA",
+      "bottoms": "ボトムスA",
+      "shoes": "シューズA",
+      "accessory": "アクセA"
+    },
+    "image": "https://via.placeholder.com/300"
+  }
+]
