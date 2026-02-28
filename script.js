@@ -77,3 +77,34 @@ document.getElementById("filterToggle")
     area.style.display =
       area.style.display === "none" ? "block" : "none";
   });
+
+function applyFilters() {
+  const checkedBoxes = document.querySelectorAll("input[type=checkbox]:checked");
+
+  const filterMap = {};
+
+  // カテゴリごとにまとめる
+  checkedBoxes.forEach(box => {
+    const key = box.dataset.key;
+    if (!filterMap[key]) filterMap[key] = [];
+    filterMap[key].push(box.value);
+  });
+
+  const filteredData = allData.filter(item => {
+
+    return Object.keys(filterMap).every(key => {
+      // カテゴリ内はOR
+      return filterMap[key].includes(item[key].toString());
+    });
+
+  });
+
+  renderCards(filteredData);
+  updateCount(filteredData.length);
+}
+
+document.addEventListener("change", function (e) {
+  if (e.target.type === "checkbox") {
+    applyFilters();
+  }
+});
