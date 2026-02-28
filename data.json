@@ -1,37 +1,36 @@
 [
   {
-    "id": "0001",
-    "name": "テストコーデ",
+    "id": 1,
+    "name": "スイートリボンコーデ",
     "brand": "ラブリー",
-    "wave_no": 1,
-    "wave_label": "1弾",
-    "rarity": 3,
     "color": "ピンク",
-    "color_group": "A001",
+    "series": "1弾",
+    "rarity": "R",
+    "color_group": "sweet_ribbon",
     "parts": {
-      "tops": "トップスA",
-      "bottoms": "ボトムスA",
-      "shoes": "シューズA",
-      "accessory": "アクセA"
+      "tops": "スイートリボントップス",
+      "bottoms": "スイートリボンスカート",
+      "shoes": "スイートリボンシューズ",
+      "accessory": "スイートリボンヘアアクセ"
     },
-    "image": "https://via.placeholder.com/300"
+    "image": "images/sweet_ribbon_pink.jpg"
   },
 
   {
-    "id": "0002",
-    "name": "テストコーデ２",
-    "brand": "クール",
-    "wave_no": 3,
-    "wave_label": "3弾",
-    "rarity": 3,
+    "id": 2,
+    "name": "スイートリボンコーデ",
+    "brand": "ラブリー",
     "color": "ブルー",
-    "color_group": "A003",
+    "series": "1弾",
+    "rarity": "R",
+    "color_group": "sweet_ribbon",
     "parts": {
-      "tops": "トップスA",
-      "bottoms": "ボトムスA",
-      "shoes": "シューズA",
-      "accessory": "アクセA"
+      "tops": "スイートリボントップス",
+      "bottoms": "スイートリボンスカート",
+      "shoes": "スイートリボンシューズ",
+      "accessory": "スイートリボンヘアアクセ"
     },
-    "image": "https://via.placeholder.com/300"
+    "image": "images/sweet_ribbon_blue.jpg"
   }
+
 ]
