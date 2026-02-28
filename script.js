@@ -81,6 +81,7 @@ document.getElementById("filterToggle")
 function applyFilters() {
   const checkedBoxes = document.querySelectorAll("input[type=checkbox]:checked");
   const searchText = document.getElementById("searchInput").value.toLowerCase();
+  const groupToggle = document.getElementById("groupToggle").checked;
 
   const filterMap = {};
 
@@ -90,9 +91,9 @@ function applyFilters() {
     filterMap[key].push(box.value);
   });
 
-  const filteredData = allData.filter(item => {
+  let filteredData = allData.filter(item => {
 
-    // ① カテゴリフィルター判定
+    // ① カテゴリ判定
     const categoryMatch = Object.keys(filterMap).every(key => {
       return filterMap[key].includes(item[key].toString());
     });
@@ -108,11 +109,29 @@ function applyFilters() {
         item.parts.shoes +
         item.parts.accessory;
 
-      return searchable.toLowerCase().includes(searchText);
+      if (!searchable.toLowerCase().includes(searchText)) {
+        return false;
+      }
     }
 
     return true;
   });
+
+  // ③ 色違いまとめ処理
+  if (groupToggle) {
+    const seenGroups = new Set();
+
+    filteredData = filteredData.filter(item => {
+      if (!item.color_group) return true;
+
+      if (seenGroups.has(item.color_group)) {
+        return false;
+      } else {
+        seenGroups.add(item.color_group);
+        return true;
+      }
+    });
+  }
 
   renderCards(filteredData);
   updateCount(filteredData.length);
@@ -126,3 +145,6 @@ document.addEventListener("change", function (e) {
 
 document.getElementById("searchInput")
   .addEventListener("input", applyFilters);
+
+document.getElementById("groupToggle")
+  .addEventListener("change", applyFilters);
