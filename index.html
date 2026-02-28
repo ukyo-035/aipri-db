@@ -9,6 +9,30 @@
 <body>
 
   <h1>ひみつのアイプリDB</h1>
+
+  <section id="controls">
+
+  <input type="text" id="searchInput" placeholder="検索">
+
+  <button id="filterToggle">フィルター</button>
+
+  <div id="filterArea" style="display:none; margin-top:10px;">
+
+    <h3>ブランド</h3>
+    <div id="brandFilter"></div>
+
+    <h3>排出弾</h3>
+    <div id="waveFilter"></div>
+
+    <h3>レアリティ</h3>
+    <div id="rarityFilter"></div>
+
+    <h3>カラー</h3>
+    <div id="colorFilter"></div>
+
+  </div>
+</section>
+  
   <p id="resultCount"></p>
 
   <main id="cardContainer"></main>
