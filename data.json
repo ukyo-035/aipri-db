@@ -1,1 +1,19 @@
-
+[
+  {
+    "id": "0001",
+    "name": "テストコーデ",
+    "brand": "ラブリー",
+    "wave_no": 1,
+    "wave_label": "1弾",
+    "rarity": 3,
+    "color": "ピンク",
+    "color_group": "A001",
+    "parts": {
+      "tops": "トップスA",
+      "bottoms": "ボトムスA",
+      "shoes": "シューズA",
+      "accessory": "アクセA"
+    },
+    "image": "https://via.placeholder.com/300"
+  }
+]
