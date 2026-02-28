@@ -2,46 +2,44 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ひみつのアイプリDB</title>
+  <title>アイプリ衣装図鑑</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>ひみつのアイプリDB</h1>
+<h1>アイプリ衣装図鑑</h1>
 
-  <section id="controls">
+<input type="text" id="searchInput" placeholder="コーデ名・パーツ検索">
 
-  <input type="text" id="searchInput" placeholder="検索">
+<div class="filters">
 
-  <button id="filterToggle">フィルター</button>
+  <h3>ブランド</h3>
+  <label><input type="checkbox" data-key="brand" value="ラブリー">ラブリー</label>
+  <label><input type="checkbox" data-key="brand" value="クール">クール</label>
 
-  <div id="filterArea" style="display:none; margin-top:10px;">
+  <h3>カラー</h3>
+  <label><input type="checkbox" data-key="color" value="ピンク">ピンク</label>
+  <label><input type="checkbox" data-key="color" value="ブルー">ブルー</label>
 
-    <h3>ブランド</h3>
-    <div id="brandFilter"></div>
+  <h3>弾</h3>
+  <label><input type="checkbox" data-key="series" value="1弾">1弾</label>
 
-    <h3>排出弾</h3>
-    <div id="waveFilter"></div>
+  <h3>レアリティ</h3>
+  <label><input type="checkbox" data-key="rarity" value="R">R</label>
+  <label><input type="checkbox" data-key="rarity" value="SR">SR</label>
 
-    <h3>レアリティ</h3>
-    <div id="rarityFilter"></div>
+  <hr>
+  <label>
+    <input type="checkbox" id="groupToggle">
+    色違いをまとめる
+  </label>
 
-    <h3>カラー</h3>
-    <div id="colorFilter"></div>
+</div>
 
-    <label>
- 　　 <input type="checkbox" id="groupToggle">
- 　　 色違いをまとめる
-　　</label>
+<p id="count"></p>
 
-  </div>
-</section>
-  
-  <p id="resultCount"></p>
+<div id="cardContainer" class="card-grid"></div>
 
-  <main id="cardContainer"></main>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
